@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Algorithms_In_CSharp.Chapter1.FIFOQueueDemo.App</StartupObject>
+    <StartupObject>Algorithms_In_CSharp.Chapter2.SortDemos.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chapter1\BasicStaticMethodImpl.cs" />
+    <Compile Include="Chapter2\Sort.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
