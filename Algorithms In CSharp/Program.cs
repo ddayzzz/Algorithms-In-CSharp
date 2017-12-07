@@ -8,6 +8,9 @@ namespace Algorithms_In_CSharp
 {
     static class WindowsApp
     {
-        
+        public static void Main()
+        {
+
+        }
     }
 }

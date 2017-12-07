@@ -213,16 +213,18 @@ namespace Algorithms_In_CSharp.Chapter2
             //快速三向切分 Bently-Mcllroy算法
 
         }
-        //实现一个最大二叉堆
-        class MaxBinaryHeap<Key>
-            where Key:IComparable
+        //实现一个二叉堆，如果比较的谓词为<是最小堆>是最大堆
+        class BinaryHeap<Key>
+            where Key:IComparable<Key>
         {
             private Key[] pq;//基于堆的二叉树
             private int currentSize;//存储与pq[0...N]的数据
-            public MaxBinaryHeap(int size)
+            private Func<Key, Key, Boolean> comp;//自定义比较器
+            public BinaryHeap(int size, Func<Key, Key, Boolean> comparer=null)
             {
                 currentSize = 0;
                 pq = new Key[size+1];
+                comp = comparer;
             }
             //是否为空
             public bool IsEmpty() { return currentSize == 0; }
@@ -242,7 +244,7 @@ namespace Algorithms_In_CSharp.Chapter2
 
             }
             //删除元素
-            public Key DeleteMax()
+            public Key Delete()
             {
                 if(IsEmpty()==false)
                 {
@@ -256,9 +258,14 @@ namespace Algorithms_In_CSharp.Chapter2
                 throw new Exception("没有元素可以删除");
             }
             //排序比较
-            public bool Less(int i,int j)
+            public bool Less(int i, int j)
             {
-                return pq[i].CompareTo(pq[j]) < 0;
+                if(comp == null)
+                    return pq[i].CompareTo(pq[j]) < 0;
+                else
+                {
+                    return !comp(pq[i], pq[j]);
+                }
             }
             //交换元素
             public void Exchange(int i,int j)
@@ -291,7 +298,7 @@ namespace Algorithms_In_CSharp.Chapter2
             private void swim(int k)
             {
                 
-                while(k > 1 && Less(k/2,k))
+                while(k > 1 && Less(k / 2, k))
                 {
                     Exchange(k / 2, k);
                     k = k / 2;
@@ -300,21 +307,23 @@ namespace Algorithms_In_CSharp.Chapter2
         }
         //关联索引的泛型优先队列API
         //参考了：http://www.cnblogs.com/nullzx/p/6624731.html
-        public class IndexMaxPriorityQueue<T>
-            where T:class,IComparable//限定存储值类型。以后应该可以定义class类型的
+        public class IndexPriorityQueue<T>
+            where T:IComparable//限定存储值类型。
         {
             private int[] pq;//保存索引
             private int[] qp;//逆序：qp[pq[i]] = pq[qp[i]] = i
             private int currentSize;//元素的数量
             private T[] keys;//右优先级之分的元素
+            private Func<T, T, Boolean> comp;//自定义比较器
             //初始化大小
-            public IndexMaxPriorityQueue(int size)
+            public IndexPriorityQueue(int size, Func<T, T, Boolean> comp=null)
             {
                 keys = new T[size + 1];
                 pq = new int[size + 1];
                 qp = new int[size + 1];
                 for (int i = 0; i <= size; ++i)
                     qp[i] = -1;
+                this.comp = comp;
             }
             //插入元素
             public void Insert(int k,T key)
@@ -402,11 +411,21 @@ namespace Algorithms_In_CSharp.Chapter2
                 qp[pq[i]] = i;
                 qp[pq[j]] = j;
             }
-            //比较
+            /// <summary>
+            /// 指定顺序Less表示于comp或者CompareTo相反的结果
+            /// </summary>
+            /// <param name="i"></param>
+            /// <param name="j"></param>
+            /// <returns></returns>
             private bool Less(int i,int j)
             {
                 //Less需要比较keys中保存的变量
-                return keys[pq[i]].CompareTo(keys[pq[j]]) < 0;
+                if (comp == null)
+                    return keys[pq[i]].CompareTo(keys[pq[j]]) < 0;
+                else
+                {
+                    return !comp(keys[pq[i]], keys[pq[j]]);
+                }
             }
             //使用有些队列多项归并
             public class Multiway
@@ -414,7 +433,7 @@ namespace Algorithms_In_CSharp.Chapter2
                 public static void Merge(StreamReader[] streams)
                 {
                     int N = streams.Length;
-                    IndexMaxPriorityQueue<string> pq = new IndexMaxPriorityQueue<string>(N);//最大堆，从大到小排序
+                    IndexPriorityQueue<string> pq = new IndexPriorityQueue<string>(N);//最大堆，从大到小排序
                     for (int i = 0; i < N; ++i)
                         if (!streams[i].EndOfStream)
                             pq.Insert(i, streams[i].ReadLine());//i是保存的元素的流在数组的索引

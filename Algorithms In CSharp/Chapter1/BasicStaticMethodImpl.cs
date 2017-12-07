@@ -98,7 +98,7 @@ namespace Algorithms_In_CSharp.Chapter1
     namespace BagDemo
     {
         //1.3.1.4 背包实现
-        class Bag<Item> : IEnumerable<Item>
+        public class Bag<Item> : IEnumerable<Item>
         {
             //迭代接口
             private List<Item> data = new List<Item>();
@@ -118,7 +118,10 @@ namespace Algorithms_In_CSharp.Chapter1
             {
                 return data.GetEnumerator();
             }
-
+            public bool HashValue(Item w)
+            {
+                return data.Contains(w);
+            }
 
         }
         class App
