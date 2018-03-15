@@ -17,7 +17,7 @@ namespace Algorithms_In_CSharp.Graph
         /// 构造函数
         /// </summary>
         /// <param name="g">图</param>
-        public Degrees(Graph g)
+        public Degrees(IGraph g)
         {
             indegrees = new int[g.V];
             outdegrees = new int[g.V];

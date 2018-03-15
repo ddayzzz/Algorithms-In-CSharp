@@ -15,7 +15,7 @@ namespace Algorithms_In_CSharp.Graph
         private int[] edgeTo;
         private Stack<int> cycle;//保存一个环
         private bool[] onStack;//递归调用栈上的所有顶点。用来确定一条路径
-        public DirectedCycle(Digraph digraph)
+        public DirectedCycle(IDirectedGraph digraph)
         {
             onStack = new bool[digraph.V];
             edgeTo = new int[digraph.V];
@@ -26,7 +26,7 @@ namespace Algorithms_In_CSharp.Graph
                     dfs(digraph, v);
             }
         }
-        private void dfs(Digraph digraph, int v)
+        private void dfs(IDirectedGraph digraph, int v)
         {
             onStack[v] = true;
             marked[v] = true;

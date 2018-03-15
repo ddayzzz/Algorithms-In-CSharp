@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Algorithms_In_CSharp.Graph.EdgeWightedGraph</StartupObject>
+    <StartupObject>Algorithms_In_CSharp.Graph.Algorithms.AcyclicSP</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,27 +51,37 @@
     <Compile Include="Chapter2\Sort.cs" />
     <Compile Include="Chapter3.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Graph\Algorithms\AcyclicSP.cs" />
     <Compile Include="Graph\Algorithms\DepthFirstOrder.cs" />
     <Compile Include="Graph\Algorithms\BreadthFirstSearch.cs" />
     <Compile Include="Graph\Algorithms\DepthFirstOrderSearch.cs" />
+    <Compile Include="Graph\Algorithms\DijkstraSP.cs" />
     <Compile Include="Graph\Algorithms\KosarajuSCC.cs" />
     <Compile Include="Graph\Algorithms\KruskalMST.cs" />
     <Compile Include="Graph\Algorithms\PrimMST.cs" />
     <Compile Include="Graph\Algorithms\TarjanSCC.cs" />
     <Compile Include="Graph\Algorithms\Topological.cs" />
     <Compile Include="Graph\Algorithms\CC.cs" />
+    <Compile Include="Graph\Algorithms\ZhuLiuAlgorithmInMinimumTreeGraph.cs" />
     <Compile Include="Graph\Degrees.cs" />
     <Compile Include="Graph\Digraph.cs" />
     <Compile Include="Graph\DirectedCycle.cs" />
+    <Compile Include="Graph\DirectedEdge.cs" />
+    <Compile Include="Graph\DirectedWeightedGraph.cs" />
     <Compile Include="Graph\Edge.cs" />
     <Compile Include="Graph\EdgeWightedGraph.cs" />
     <Compile Include="Graph\Euler.cs" />
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="Graph\GraphProperties.cs" />
+    <Compile Include="Graph\IDirectedGraph.cs" />
+    <Compile Include="Graph\IGraph.cs" />
+    <Compile Include="Graph\IShortestPath.cs" />
+    <Compile Include="Graph\IWeighted.cs" />
     <Compile Include="Graph\PriorityQueue.cs" />
     <Compile Include="Graph\Search.cs" />
     <Compile Include="Graph\SymbolGraph.cs" />
     <Compile Include="Graph\TwoColor.cs" />
+    <Compile Include="Graph\WeightedGraph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

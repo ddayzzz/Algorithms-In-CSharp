@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Algorithms_In_CSharp.Graph
 {
-    public sealed class Edge:IComparable<Edge>, IComparable
+    public class Edge:IComparable<Edge>, IComparable
     {
-        public Double Weight { get; }
+        public Double Weight { get; set; }
         private readonly Int32 v;
         private readonly Int32 w;
 

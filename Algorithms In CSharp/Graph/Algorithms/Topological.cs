@@ -10,7 +10,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
     public class Topological
     {
         private IEnumerable<int> order;//顶点的拓扑排序
-        public Topological(Digraph g)
+        public Topological(IDirectedGraph g)
         {
             DirectedCycle directedCycle = new DirectedCycle(g);
             if (!directedCycle.HasCycle())
@@ -46,7 +46,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
     public class Topological_Queue
     {
         private List<Int32> result;
-        public Topological_Queue(Digraph g)
+        public Topological_Queue(IDirectedGraph g)
         {
             DirectedCycle directedCycle = new DirectedCycle(g);
             if (!directedCycle.HasCycle())
@@ -55,7 +55,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
                 solve(g);
             }
         }
-        private void solve(Digraph g)
+        private void solve(IDirectedGraph g)
         {
             result = new List<int>();
             Degrees degrees_info = new Degrees(g);

@@ -1,5 +1,6 @@
 ﻿using Algorithms_In_CSharp.Chapter1.BagDemo;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Algorithms_In_CSharp.Graph
 {
-    public class Graph
+    public class Graph:IEnumerable<Edge>, IGraph
     {
         /// <summary>
         /// 虚函数：顶点数目
         /// </summary>
-        public virtual int V { get; protected set; }
+        public int V { get; protected set; }
         /// <summary>
         /// 虚函数：边数量
         /// </summary>
@@ -21,7 +22,7 @@ namespace Algorithms_In_CSharp.Graph
         /// <summary>
         /// 保存邻接表
         /// </summary>
-        protected Bag<int>[] adj;//邻接表
+        protected Bag<Tuple<int, double>>[] adj;//邻接表
         /// <summary>
         /// 构造函数，指定顶点数量
         /// </summary>
@@ -30,9 +31,9 @@ namespace Algorithms_In_CSharp.Graph
         {
             this.V = V;
             this.E = 0;//零图
-            this.adj = new Bag<int>[V];
+            this.adj = new Bag<Tuple<int, double>>[V];
             for (int v = 0; v < V; ++v)
-                adj[v] = new Bag<int>();//类型实例化
+                adj[v] = new Bag<Tuple<int, double>>();//类型实例化
         }
         /// <summary>
         /// 从文件流中读取
@@ -42,38 +43,41 @@ namespace Algorithms_In_CSharp.Graph
         {
             //标准的图
             string V = reader.ReadLine();//点数
-            adj = new Bag<int>[int.Parse(V)];
+            adj = new Bag<Tuple<int, double>>[int.Parse(V)];
             for (int i = 0; i < adj.Length; ++i)
-                adj[i] = new Bag<int>();
+                adj[i] = new Bag<Tuple<int, double>>();
             string E = reader.ReadLine();//边数
             int ie = int.Parse(E);
             this.V = adj.Length;
             this.E = ie;
             for (int i = 0; i < ie; ++i)
             {
-                string[] vw = reader.ReadLine().Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                if (vw.Length == 2)
-                {
-                    int v = int.Parse(vw[0]);
-                    int w = int.Parse(vw[1]);
-                    AddEdge(v, w);
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException("没有提供足够的数据连接");
-                }
+                AddEdge(reader.ReadLine());
             }
             reader.Close();
         }
         /// <summary>
         /// 添加边
         /// </summary>
-        /// <param name="v">弧尾</param>
-        /// <param name="w">弧头</param>
-        public virtual void AddEdge(int v, int w)
+        /// <param name="data">顶点、顶点、权重的数据组字符串</param>
+        public virtual void AddEdge(string data)
         {
-            adj[v].Add(w);
-            adj[w].Add(v);
+            string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            if(vw.Length == 2)
+            {
+                int v = int.Parse(vw[0]);
+                int w = int.Parse(vw[1]);
+                adj[v].Add(new Tuple<int, double>(w,1.0));
+                adj[w].Add(new Tuple<int, double>(v, 1.0));
+                ++E;//加上无向图的数量需要+1
+            }
+            else
+                throw new IndexOutOfRangeException("没有提供足够的数据连接");
+        }
+        public virtual void AddEdge(int v,int w)
+        {
+            adj[v].Add(new Tuple<int, double>(w, 1.0));
+            adj[w].Add(new Tuple<int, double>(v, 1.0));
             ++E;
         }
         /// <summary>
@@ -85,7 +89,10 @@ namespace Algorithms_In_CSharp.Graph
         public bool Connected(int v, int w)
         {
             var t = adj[v];
-            return t.HashValue(w);
+            foreach (var item in t)
+                if (item.Item1 == w)
+                    return true;
+            return false;
         }
         /// <summary>
         /// 邻接顶点的序列
@@ -96,7 +103,7 @@ namespace Algorithms_In_CSharp.Graph
         {
             foreach (var item in adj[v])
             {
-                yield return item;
+                yield return item.Item1;
             }
         }
         /// <summary>
@@ -115,6 +122,29 @@ namespace Algorithms_In_CSharp.Graph
                 }
             }
             return sw.GetStringBuilder().ToString();
+        }
+
+        public IEnumerator<Edge> GetEnumerator()
+        {
+            for(int i=0;i<V;++i)
+            {
+                foreach(var item in adj[i])
+                {
+                    //产生新的边对象
+                    yield return new Edge(i, item.Item1, item.Item2);//这是无向不加权图
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public virtual IEnumerable<Edge> GetEdge(Int32 v)
+        {
+            foreach (int w in Adj(v))
+                yield return new Edge(v, w, 1.0);//默认的权值为1.0
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
         /// 构造函数
         /// </summary>
         /// <param name="g">有向图</param>
-        public KosarajuSCC(Digraph g)
+        public KosarajuSCC(IDirectedGraph g)
         {
             marked = new bool[g.V];
             id = new int[g.V];
@@ -57,7 +57,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
         {
             return id[v];
         }
-        private void dfs(Digraph g, int v)
+        private void dfs(IDirectedGraph g, int v)
         {
             marked[v] = true;
             id[v] = count;

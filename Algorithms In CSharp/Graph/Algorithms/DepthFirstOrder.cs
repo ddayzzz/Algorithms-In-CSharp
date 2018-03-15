@@ -17,7 +17,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
         private Queue<int> pre;//所有顶点的前序排序
         private Queue<int> post;//所有顶点的后序排列
         private Stack<int> reversePost;//所有顶点的逆后序排列
-        public DepthFirstOrder(Graph g)
+        public DepthFirstOrder(IGraph g)
         {
             pre = new Queue<int>();
             post = new Queue<int>();
@@ -28,7 +28,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
                     dfs(g, i);//便利还没有搜索的顶点
         }
 
-        private void dfs(Graph g, int v)
+        private void dfs(IGraph g, int v)
         {
             //前向排序是顶点的顺序遍历之前的顺序
             pre.Enqueue(v);
