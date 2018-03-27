@@ -19,7 +19,7 @@ namespace Algorithms_In_CSharp.Graph
         {
            
         }
-        public override void AddEdge(String data)
+        protected override void AddEdge(String data)
         {
             string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             if (vw.Length == 3)
@@ -40,6 +40,11 @@ namespace Algorithms_In_CSharp.Graph
             adj[v].Add(new Tuple<int, double>(w, weight));
             adj[w].Add(new Tuple<int, double>(v, weight));
             ++E;
+        }
+
+        public Double GetWeight(Int32 v, Int32 w)
+        {
+            throw new NotImplementedException();
         }
     }
 }

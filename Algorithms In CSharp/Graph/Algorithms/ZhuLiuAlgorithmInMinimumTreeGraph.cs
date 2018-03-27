@@ -37,7 +37,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
             int edge_size = digraph.E;
             double res = 0;//记录最终的最小树形图的
             int v;
-            List<Edge> edge = digraph.ToList();
+            List<DirectedEdge> edge = ((IEnumerable<DirectedEdge>)digraph).ToList(); //digraph.ToList();
             while (true)
             {
                 for (int i = 0; i < vertex_size; ++i)

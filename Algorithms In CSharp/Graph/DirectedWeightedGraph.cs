@@ -10,14 +10,30 @@ namespace Algorithms_In_CSharp.Graph
     /// <summary>
     /// 有向加权图定义
     /// </summary>
-    class DirectedWeightedGraph:WeightedGraph, IDirectedGraph
+    public class DirectedWeightedGraph:Digraph, IWeighted
     {
         public DirectedWeightedGraph(int v) : base(v) { }
         public DirectedWeightedGraph(TextReader reader) : base(reader)
         {
 
         }
-        public override void AddEdge(String data)
+
+        public void AddEdge(Int32 v, Int32 w, Double weight)
+        {
+            adj[v].Add(new Tuple<int, double>(w, weight));
+            ++E;
+        }
+
+        public Double GetWeight(Int32 v, Int32 w)
+        {
+            Tuple<int,double> res = adj[v].FirstOrDefault((item)=>item.Item1==w);
+            if (res != null)
+                return res.Item2;
+            else
+                throw new IndexOutOfRangeException("顶点不存在");
+        }
+
+        protected override void AddEdge(String data)
         {
             string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             if (vw.Length == 3)
@@ -29,28 +45,6 @@ namespace Algorithms_In_CSharp.Graph
             }
             else
                 throw new IndexOutOfRangeException("没有提供足够的数据连接");
-        }
-        public new IEnumerator<DirectedEdge> GetEnumerator()
-        {
-            for (int i = 0; i < V; ++i)
-            {
-                foreach (var item in adj[i])
-                {
-                    //产生新的边对象
-                    yield return new DirectedEdge(i, item.Item1, item.Item2);//这是无向不加权图
-                }
-            }
-        }
-
-        public IDirectedGraph Reverse()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IEnumerable<Edge> GetEdge(Int32 v)
-        {
-            foreach (var tup in adj[v])
-                yield return new DirectedEdge(v, tup.Item1, tup.Item2);
         }
     }
 }

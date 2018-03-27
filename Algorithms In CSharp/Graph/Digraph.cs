@@ -16,18 +16,7 @@ namespace Algorithms_In_CSharp.Graph
         public Digraph(TextReader reader):base(reader)
         {
         }
-        public override void AddEdge(string data)
-        {
-            string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            if (vw.Length == 2)
-            {
-                int v = int.Parse(vw[0]);
-                int w = int.Parse(vw[1]);
-                adj[v].Add(new Tuple<int, double>(w, 1.0));
-            }
-            else
-                throw new IndexOutOfRangeException("没有提供足够的数据连接");
-        }
+        
         public IDirectedGraph Reverse()
         {
             Digraph digraph = new Digraph(V);
@@ -79,6 +68,39 @@ namespace Algorithms_In_CSharp.Graph
         {
             foreach (var tup in adj[v])
                 yield return new DirectedEdge(v, tup.Item1, tup.Item2);
+        }
+        protected override void AddEdge(string data)
+        {
+            string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            if (vw.Length == 2)
+            {
+                int v = int.Parse(vw[0]);
+                int w = int.Parse(vw[1]);
+                adj[v].Add(new Tuple<int, double>(w, 1.0));
+            }
+            else
+                throw new IndexOutOfRangeException("没有提供足够的数据连接");
+        }
+        public override void AddEdge(int v, int w)
+        {
+            adj[v].Add(new Tuple<int, double>(w, 1.0));
+            ++E;
+        }
+        public override void AddEdge(Edge edge)
+        {
+            int v, w;
+            v = edge.Either();
+            w = edge.Other(v);
+            adj[v].Add(new Tuple<int, double>(w, edge.Weight));
+            ++E;
+        }
+        public void AddEdge(DirectedEdge edge)
+        {
+            int v, w;
+            v = edge.Src;
+            w = edge.End;
+            adj[v].Add(new Tuple<int, double>(w, edge.Weight));
+            ++E;
         }
     }
 

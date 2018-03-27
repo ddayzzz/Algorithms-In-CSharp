@@ -26,6 +26,11 @@ namespace Algorithms_In_CSharp.Graph
         /// <param name="w">点2</param>
         void AddEdge(int v, int w);
         /// <summary>
+        /// 添加一个已经存在的边
+        /// </summary>
+        /// <param name="edge">边</param>
+        void AddEdge(Edge edge);
+        /// <summary>
         /// 判断是否已经连接
         /// </summary>
         /// <param name="v">点1</param>

@@ -12,5 +12,6 @@ namespace Algorithms_In_CSharp.Graph
     public interface IWeighted
     {
         void AddEdge(int v, int w, double weight);
+        double GetWeight(int v, int w);
     }
 }

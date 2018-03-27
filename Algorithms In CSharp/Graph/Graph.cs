@@ -60,7 +60,7 @@ namespace Algorithms_In_CSharp.Graph
         /// 添加边
         /// </summary>
         /// <param name="data">顶点、顶点、权重的数据组字符串</param>
-        public virtual void AddEdge(string data)
+        protected virtual void AddEdge(string data)
         {
             string[] vw = data.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             if(vw.Length == 2)
@@ -145,6 +145,16 @@ namespace Algorithms_In_CSharp.Graph
         {
             foreach (int w in Adj(v))
                 yield return new Edge(v, w, 1.0);//默认的权值为1.0
+        }
+
+        public virtual void AddEdge(Edge edge)
+        {
+            int v, w;
+            v = edge.Either();
+            w = edge.Other(v);
+            adj[v].Add(new Tuple<int, double>(w, 1.0));
+            adj[w].Add(new Tuple<int, double>(v, 1.0));
+            ++E;
         }
     }
 }
