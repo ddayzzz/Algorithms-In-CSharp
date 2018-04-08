@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Algorithms_In_CSharp.StringDemo.WordTree.TSTTest</StartupObject>
+    <StartupObject>Algorithms_In_CSharp.StringDemo.Match.NFA</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeTime">
@@ -89,6 +89,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringDemo\Alphabet.cs" />
+    <Compile Include="StringDemo\Match\ISearch.cs" />
+    <Compile Include="StringDemo\Match\KMP.cs" />
+    <Compile Include="StringDemo\Match\BM.cs" />
+    <Compile Include="StringDemo\Match\NFA.cs" />
+    <Compile Include="StringDemo\Match\RabinKarp.cs" />
     <Compile Include="StringDemo\RandomStrings.cs" />
     <Compile Include="StringDemo\Sort\LSD.cs" />
     <Compile Include="StringDemo\Sort\MSD.cs" />

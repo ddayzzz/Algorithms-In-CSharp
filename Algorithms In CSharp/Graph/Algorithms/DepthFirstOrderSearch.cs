@@ -14,7 +14,7 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
         private bool[] marked;
         private int[] edgeTo;
         private readonly int s;//起点
-        private void DFS(Graph g, int v)
+        private void DFS(IGraph g, int v)
         {
             marked[v] = true;
             foreach (int w in g.Adj(v))
@@ -24,12 +24,27 @@ namespace Algorithms_In_CSharp.Graph.Algorithms
                     DFS(g, w);
                 }
         }
-        public DepthFirstSearch(Graph g, int s)
+        
+        public DepthFirstSearch(IGraph g, int s)
         {
             marked = new bool[g.V];
             edgeTo = new int[g.V];
             this.s = s;
             DFS(g, s);
+        }
+        /// <summary>
+        /// DFS ss集合中所有的点
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="ss"></param>
+        public DepthFirstSearch(IGraph g, IEnumerable<int> ss)
+        {
+            marked = new bool[g.V];
+            edgeTo = new int[g.V];
+            foreach(var item in ss)
+            {
+                DFS(g, item);
+            }
         }
         public bool HasPathTo(int v)
         {
