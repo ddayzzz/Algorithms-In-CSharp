@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Algorithms_In_CSharp.StringDemo.Match.NFA</StartupObject>
+    <StartupObject>Algorithms_In_CSharp.Context.FlowNetwork.FordFulkerson</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeTime">
@@ -54,6 +54,13 @@
     <Compile Include="Chapter2\Sort.cs" />
     <Compile Include="Chapter3.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Context\BTree\BTree.cs" />
+    <Compile Include="Context\FlowNetwork\FlowEdge.cs" />
+    <Compile Include="Context\FlowNetwork\FlowNetwork.cs" />
+    <Compile Include="Context\FlowNetwork\FordFulkerson.cs" />
+    <Compile Include="Context\LinearProgramming.cs" />
+    <Compile Include="Context\SuffixArray\KWIC.cs" />
+    <Compile Include="Context\SuffixArray\SuffixArray.cs" />
     <Compile Include="Graph\Algorithms\AcyclicSP.cs" />
     <Compile Include="Graph\Algorithms\BellmanFordSP.cs" />
     <Compile Include="Graph\Algorithms\DepthFirstOrder.cs" />
@@ -104,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="StringDemo\StringDemo.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DrawingFunctionGraph\DrawingFunctionGraph.csproj">

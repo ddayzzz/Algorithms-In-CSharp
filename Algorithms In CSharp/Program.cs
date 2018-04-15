@@ -8,9 +8,11 @@ namespace Algorithms_In_CSharp
 {
     static class WindowsApp
     {
-        public static void Main()
+        public static void Main(String[] args)
         {
-
+            // 允许指定简短的名称。可以使用 B 树：）
+            // 反射加载指定的类
+            // 调用 Main 函数
         }
     }
 }
